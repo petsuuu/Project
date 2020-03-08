@@ -1,0 +1,235 @@
+﻿---
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: JSON FAKER
+  termsOfService: https://github.com/murilofelpeto/jsonServer
+  contact:
+    name: API Team
+    url: https://github.com/murilofelpeto/jsonServer
+    email: murilofelpeto@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: my-json-server.typicode.com
+basePath: /murilofelpeto/jsonServer
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/posts":
+    get:
+      summary: "Consultar os Posts"
+      description: 'Consultar os posts'
+      tags:
+        - "CONSULTA POST"
+      operationId: "CONSULTA POST"
+      produces:
+        - "application/json"
+      parameters:
+        - name: userId
+          in: query
+          type: integer
+          description: "Id do usuario que criou o post (OPCIONAL)"
+          required: false
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/posts'
+    post:
+      summary: "Incluir um post"
+      description: "Incluir um post"
+      tags:
+        - "INCLUIR POST"
+      operationId: "IncluirPost"
+      produces:
+        - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Dados para incluir um post"
+        required: true
+        schema:
+          $ref: '#/definitions/posts'
+    
+      responses:
+        '201':
+          description: "Created"
+          schema: 
+            $ref: '#/definitions/posts'
+  "/posts/{postID}":
+    get:
+      summary: "Consultar os Posts por ID"
+      description: 'Consultar os posts por ID'
+      tags:
+        - "CONSULTA POST POR ID"
+      operationId: "POST POR ID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: postID
+          in: path
+          type: integer
+          description: "Id do post"
+          required: true
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/posts'
+    put:
+      summary: "Atualizar os Posts por ID"
+      description: 'Atualizar os posts por ID'
+      tags:
+        - "ATUALIZAR POST POR ID"
+      operationId: "ATUALIZAR POST POR ID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: postID
+          in: path
+          type: integer
+          description: "Id do post"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Dados para incluir um post"
+          required: true
+          schema:
+            $ref: '#/definitions/posts'
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/posts'
+    patch:
+      summary: "Atualizar os Posts por ID"
+      description: 'Atualizar os posts por ID'
+      tags:
+        - "ATUALIZAR POST POR ID"
+      operationId: "ATUALIZAR UM ATRIBUTO DO POST POR ID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: postID
+          in: path
+          type: integer
+          description: "Id do post"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Dados para incluir um post"
+          required: true
+          schema:
+            $ref: '#/definitions/posts'
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/posts'
+    delete:
+      summary: "Deletar os Posts por ID"
+      description: 'Deletar os posts por ID'
+      tags:
+        - "DELETAR POST POR ID"
+      operationId: "DELETAR UM ATRIBUTO DO POST POR ID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: postID
+          in: path
+          type: integer
+          description: "Id do post"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Dados para incluir um post"
+          required: true
+          schema:
+            $ref: '#/definitions/posts'
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/posts'
+  "/posts/{postID}/comments":
+    get:
+      summary: "Consultar os comentários por ID do post"
+      description: 'Consultar os comentários por ID do post'
+      tags:
+        - "CONSULTA COMENTÁRIO POR ID"
+      operationId: "COMENTÁRIO POR ID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: postID
+          in: path
+          type: integer
+          description: "Id do post"
+          required: true
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/comments'
+  "/comments":
+    get:
+      summary: "Consultar os comentários por ID do post"
+      description: 'Consultar os comentários por ID do post'
+      tags:
+        - "CONSULTA COMENTÁRIO POR ID"
+      operationId: "COMENTÁRIO POR ID DO POST"
+      produces:
+        - "application/json"
+      parameters:
+        - name: postId
+          in: query
+          type: integer
+          description: "Id do post"
+          required: true
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/comments'
+  
+definitions:
+  posts:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: post id
+      title:
+        type: string
+        description: post title
+  comments:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id do comentário
+      body:
+        type: string
+        description: comentário
+      postId:
+        type: integer
+        description: id do post atrelado ao cometário
